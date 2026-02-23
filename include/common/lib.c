@@ -1,17 +1,13 @@
 #include "lib.h"
 #include "io.h"
 
-void *memcpy(void *dst0, const void *src0, unsigned int n)
-{
-  char *dst = dst0;
-  const char *src = src0; 
-  while (n--)
-    {
-      *dst++ = *src++;
+void memcpy(void* dest, const void* src, size_t n) {
+    uint8_t* d = (uint8_t*)dest;
+    const uint8_t* s = (const uint8_t*)src;
+    for (size_t i = 0; i < n; i++) {
+        d[i] = s[i];
     }
-  return dst0;
 }
-
 #define INT_DIGITS 19 /* enough for 64 bit integer */
 
 char *itoa(int i)

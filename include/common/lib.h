@@ -2,8 +2,9 @@
 #define LIB_H
 
 #include <stdint.h>
+#include <stddef.h>
 
-void *memcpy(void *, const void *, unsigned int);
+void memcpy(void* dest, const void* src, size_t n);
 static inline int abs(int x)
 {
   return x >= 0 ? x : -x;

@@ -18,7 +18,6 @@ void init_pic(void)
   outb(0x21, 0x01);
   outb(0xA1, 0x01);
 
-  /* démasquage des interruptions */
-  outb(0x21, 0x0);
-  outb(0xA1, 0x0);
+  outb(0x21, 0xFC); // 11111100: Only IRQ 0 and 1 allowed
+outb(0xA1, 0xFF); // Mask all Slave interrupts for now
 }

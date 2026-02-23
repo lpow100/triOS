@@ -11,6 +11,7 @@
 .global _asm_irq_0
 .global _asm_irq_1
 .global _asm_syscall_int
+.global _asm_pf
 
 .macro PUSH_REGS
     push rax
@@ -51,6 +52,22 @@
 
 _asm_default_int:
     PUSH_REGS
+
+    mov rdi, rsp              
+    call isr_default_int
+
+    mov al, 0x20
+    out 0x20, al              
+
+    POP_REGS
+    iretq
+
+_asm_pf:
+    PUSH_REGS
+
+    mov al, 80
+    mov dx, 0x3F8
+    out dx, al
 
     mov rdi, rsp              
     call isr_default_int

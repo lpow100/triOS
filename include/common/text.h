@@ -17,7 +17,9 @@ size_t strlen(const char* str);
 
 bool strcmp(const char* str1, const char* str2);
 
-char *intAsString(int number);
+void intAsString(int number, char* buffer);
+
+void u64AsString(uint64_t number, char* buffer);
 
 char* hexAsString(int number);
 

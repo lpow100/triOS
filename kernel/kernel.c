@@ -9,6 +9,7 @@
 #include <video/fonts.h>
 #include <gdt.h>
 #include <pic.h>
+#include <lib.h>
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -25,16 +26,40 @@ void set_cursor(int x, int y) {
     outb(0x3D5, (uint8_t)((pos >> 8) & 0xFF)); 
 }
 
+extern uint64_t framebuffer_address;
 extern uint32_t screen_width;
 extern uint32_t screen_height;
 extern uint32_t bits_per_pixel;
 extern uint32_t pitch;
 
-volatile uint32_t *framebuffer = NULL;
+static uint32_t *framebuffer = NULL;
+static uint32_t *back_buffer = (uint32_t*)0x04000000;
 
-void kernel_main(uint64_t magic_number, uint32_t multiboot_info_ptr) {
-    kprintf("C code entered\n");
-    if (magic_number == 0xC001C0DE) kprintf("Good Code\n");
+void kernel_main(uint64_t stack, uint32_t multiboot_info_ptr) {
+    kprintf("start.s finished\n");
+    uint32_t* fb = (uint32_t*)(uintptr_t)framebuffer_address;
+
+    char bitmap_start_buff[20];
+    u64AsString((uint64_t)stack,bitmap_start_buff);
+    kprintf("stack: ");
+    kprintf(bitmap_start_buff);
+    kprintf("\n");
+
+    asm volatile (
+        "xor %%rax, %%rax\n\t"   // Zero out RAX
+        "mov %%ax, %%ss\n\t"    // In 64-bit, SS can often be NULL (0)
+        "mov %%ax, %%ds\n\t"    // Clear other data segments
+        "mov %%ax, %%es\n\t"
+        : : : "rax"       // Tell the compiler we modified these
+    );
+    init_idt();
+    init_pic();
+    init_timer();
+    kprintf("Timer initialized\n");
+    asm volatile ("sti"::);
+    kprintf("Intterupts resumed\n");
+
+    init_paging((struct multiboot_info*)multiboot_info_ptr);
 
     //framebuffer = (volatile uint32_t *)(uintptr_t)framebuffer_address;
     //kprintf("frame buffered\n");
@@ -48,8 +73,7 @@ void kernel_main(uint64_t magic_number, uint32_t multiboot_info_ptr) {
     struct multiboot_info *mbi = (struct multiboot_info*)multiboot_info_ptr;
     (void)mbi; // suppress unused warning if you’re not using it yet
 
-    initGraphics((struct multiboot_info*)multiboot_info_ptr);
-    kprintf("Graphics online\n");
+    
 
     memInit(magic, multiboot_info_ptr);
     kprintf("Memory online\n");

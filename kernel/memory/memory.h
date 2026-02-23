@@ -3,38 +3,24 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <management/pmm.h>
+#include <grub.h>
 
-#define MAX_MEM_SECTORS 32
-#define MAX_PAGES 128 
-//typical program stack size
-typedef struct {
-    uint32_t size;
-    uint64_t addr;
-    uint64_t len;
-    uint32_t type;
-} __attribute__((packed)) memory_map_entry_t;
+extern uint8_t _kernel_end;
 
-/* Multiboot Info Structure (The part we care about) */
-typedef struct {
-    uint32_t flags;
-    uint32_t mem_lower;
-    uint32_t mem_upper;
-    uint32_t boot_device;
-    uint32_t cmdline;
-    uint32_t mods_count;
-    uint32_t mods_addr;
-    uint32_t syms[4];
-    uint32_t mmap_length;
-    uint32_t mmap_addr;
-} __attribute__((packed)) multiboot_info_t;
 
-// when returning -1 please give me max mem sectors
-void memInit(uint32_t magic, uint32_t multiboot_info_ptr);
-void* alloc_frame();
+struct gdt_ptr {
+    uint16_t limit;
+    uint64_t base;
+} __attribute__((packed));
 
-/*memory_sector *getPage(int mallocSize);
-void freePage(memory_sector* page);
+extern struct gdt_ptr gdt64_ptr;
 
-stack getStack();*/
+static inline void read_gdtr(struct gdt_ptr* ptr) {
+    __asm__ volatile("sgdt %0" : "=m"(*ptr));
+}
+
+// The paging in assembly is just a bootstrap, this is the real shit
+void init_paging(struct multiboot_info* multiboot_info_ptr);
 
 #endif

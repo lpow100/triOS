@@ -13,7 +13,7 @@ SRCS_C   := $(shell find . -name '*.c')
 SRCS_ASM := $(shell find . -name '*.s')
 OBJS     := $(SRCS_C:.c=.o) $(SRCS_ASM:.s=.o)
 
-CFLAGS  = -std=gnu99 -ffreestanding -O2 -Wall -Wextra $(INCLUDES)
+CFLAGS  = -std=gnu99 -ffreestanding -O2 -Wall -Wextra $(INCLUDES) 
 ASFLAGS = 
 LDFLAGS = -T arch/i386/boot/linker.ld -ffreestanding -O2 -nostdlib -lgcc
 
@@ -50,7 +50,7 @@ run: $(TARGET_ISO)
 	         -m 1024M \
 	         -cpu qemu64,+lm \
 	         -serial stdio \
-			 -d int,cpu_reset
+			 -d int,cpu_reset -D qemu.log -no-reboot -no-shutdown
 
 clean:
 	rm -f $(OBJS) $(TARGET_BIN) $(TARGET_ISO)

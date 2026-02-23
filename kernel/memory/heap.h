@@ -3,24 +3,29 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "grub.h"
 
-#define NO_NEXT_SEGMENT 0xBAADF00D
+#define BAD_SEGMENT_PTR (struct heapSegment*) 0xBAADF00D
+#define ALLOCATED_SEG 0x414C4F43
+#define FREE_SEG 0x46524545
 
-typedef struct heapSegment {
+struct heapSegment {
+    uint32_t magic; // e.g., 0x414C4F43 ('ALOC') or 0x46524545 ('FREE')
     uint32_t size;
     struct heapSegment* next;
-    bool free;
-}__attribute__((packed)) heapSegment;
+    struct heapSegment* prev;
+}__attribute__((packed));
 
-
-typedef struct {
+struct heapInfo{
     uint64_t addr;
     uint32_t freeSize;
     uint32_t totalSize;
-    heapSegment* head;
-}__attribute__((packed)) heapInfo;
+    struct heapSegment* free;
+}__attribute__((packed));
 
-int heapInit();
+extern struct heapInfo heap;
+
+int heapInit(struct multiboot_info* multiboot_info_ptr);
 
 void *malloc(int size);
 

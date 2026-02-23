@@ -1,56 +1,31 @@
 .section .multiboot_header
 .align 8
-
 header_start:
-    # Multiboot2 magic + architecture + header length + checksum
-    .long 0xe85250d6             # magic number (MB2)
-    .long 0                       # architecture: 0 = i386
-    .long header_end - header_start # total header length
-    .long -(0xe85250d6 + 0 + (header_end - header_start)) # checksum
+    /* magic number (multiboot 2) */
+    .long 0xe85250d6
+    /* architecture 0 (protected mode i386) */
+    .long 0
+    /* header length */
+    .long header_end - header_start
+    /* checksum */
+    .long 0x100000000 - (0xe85250d6 + 0 + (header_end - header_start))
 
-# ------------------------------
-# Framebuffer tag (request graphics mode)
-# ------------------------------
-.align 8
+    /* framebuffer tag */
+    .align 8
 framebuffer_tag_start:
-    .short 5                      # type = framebuffer
-    .short 0                      # flags
-    .long framebuffer_tag_end - framebuffer_tag_start # size of this tag
-    .long 1280                    # desired width
-    .long 720                     # desired height
-    .long 32                      # desired depth (bits per pixel)
+    .word 5                                    /* type = framebuffer */
+    .word 0                                    /* flags */
+    .long framebuffer_tag_end - framebuffer_tag_start /* size */
+    .long 1280                                 /* width */
+    .long 720                                  /* height */
+    .long 32                                   /* depth (bits per pixel) */
 framebuffer_tag_end:
 
-# ------------------------------
-# Memory map tag (request memory info)
-# ------------------------------
-.align 8
-mmap_tag_start:
-    .short 6                      # type = memory map
-    .short 0                      # flags
-    .long 16                      # size (minimum size of tag including header)
-    .long 0                       # reserved (must be 0)
-mmap_tag_end:
-
-# ------------------------------
-# Module alignment tag (like ALIGN flag in MB1)
-# ------------------------------
-.align 8
-align_tag_start:
-    .short 9                      # type = module alignment
-    .short 0                      # flags
-    .long 12                      # size
-    .long 4096                    # alignment in bytes (page aligned)
-align_tag_end:
-
-# ------------------------------
-# End tag (required by MB2)
-# ------------------------------
-.align 8
-.end_tag_start:
-    .short 0                      # type = 0 (end)
-    .short 0                      # flags
-    .long 8                       # size
+    /* end tag */
+    .align 8
+    .word 0                                    /* type */
+    .word 0                                    /* flags */
+    .long 8                                    /* size */
 header_end:
 
 
@@ -129,6 +104,10 @@ total_physical_memory:
     .long 0          # low 32-bit
     .long 0          # high 32-bit for 64-bit RAM totals
 
+    .globl magic_number
+magic_number:
+    .long 0
+
 
 
 /*
@@ -176,8 +155,9 @@ _start:
     cli # begin by disabling interrupts
     mov $stack_top, %esp
 
-    push $0xC001C0DE # Save magic number
     push %ebx # Save multiboot info
+
+    movl $0xC001C0DE, magic_number
 
     leal test_msg, %esi
     call serial_print
@@ -188,6 +168,7 @@ _start:
 
     pop %ebx # we need the multiboot info for next call
     push %ebx # we still want the info later
+    call read_multiboot2
 
     call setup_paging
     
@@ -222,8 +203,7 @@ read_multiboot2:
 .found_framebuffer:
     mov 8(%esi), %eax           # framebuffer_addr low 32-bit
     movl %eax, framebuffer_address
-    movl $0xFFFF0000, (%eax)       # write red pixel (ARGB)
-    mov 12(%esi), %eax          # framebuffer_addr high 32-bit
+    mov 12(%esi), %eax           # framebuffer_addr low 32-bit
     movl %eax, framebuffer_address+4
     mov 16(%esi), %eax          # pitch (bytes per row)
     mov %eax, pitch
@@ -233,6 +213,19 @@ read_multiboot2:
     mov %eax, screen_height
     movzbl 28(%esi), %eax       # bits per pixel (zero-extend byte to 32-bit)
     mov %eax, bits_per_pixel
+    mov framebuffer_address, %edi  # Load the ADDR into %edi
+    movl $0x00FF0000, (%edi)       # Write RED to the first pixel
+    mov framebuffer_address, %edi
+    mov screen_width, %eax
+    imul screen_height, %eax    # Total pixels = width * height
+    mov %eax, %ecx              # Loop counter
+
+    mov $0x00FF0000, %eax       # Color: Red (assuming 32bpp XRGB)
+
+fill_loop:
+    movl %eax, (%edi)           # Write color to current pixel
+    add $4, %edi                # Move to next pixel (4 bytes for 32bpp)
+    loop fill_loop              # Repeat until %ecx is 0
     jmp .next_tag
 .found_mmap:
     mov 4(%esi), %ecx       # tag_size
@@ -240,6 +233,7 @@ read_multiboot2:
     lea 16(%esi), %edi      # pointer to first entry
     add %esi, %ecx            # ecx = end of tag
 
+    # 0 out eax
     xor %eax, %eax
     mov %eax, total_physical_memory
     mov %eax, total_physical_memory+4
@@ -261,6 +255,9 @@ read_multiboot2:
 .mmap_done:
     jmp .next_tag
 .done_tags:
+    mov $'D', %al # 'F' for Framebuffer
+    mov $0x3F8, %dx
+    outb %al, %dx
     mov framebuffer_address, %eax 
     cmp $0, %eax
     je .no_framebuffer
@@ -328,28 +325,28 @@ setup_paging:
     or $0x3, %eax
     mov %eax, p4_table
 
-    add $p2_table_1, %eax
+    mov $p2_table_1, %eax
     or $0x3, %eax
     mov %eax, p3_table
 
-    add $p2_table_2, %eax
+    mov $p2_table_2, %eax
     or $0x3, %eax
     mov %eax, p3_table + 8
 
-    add $p2_table_3, %eax
+    mov $p2_table_3, %eax
     or $0x3, %eax
     mov %eax, p3_table + 16
 
-    add $p2_table_4, %eax
+    mov $p2_table_4, %eax
     or $0x3, %eax
-    mov %eax, p3_table + 246
+    mov %eax, p3_table + 24
 
     /* 3. Map P2 to Physical RAM (Huge Pages) */
     mov $0, %ecx
 .code32
 .map_p2_table_1:
     mov %ecx, %eax
-    shl $21, %ecx # 2MiB pages
+    shl $21, %eax # 2MiB pages
     or $0b10000011, %eax # present + writable + huge page
     mov %eax, p2_table_1(,%ecx,8)
     movl $0, p2_table_1+ 4(,%ecx,8)
@@ -360,8 +357,8 @@ setup_paging:
     xor %ecx, %ecx
 .map_p2_table_2:
     mov %ecx, %eax
-    shl $21, %ecx # 2MiB pages
-    add $0x40000000, %ecx
+    shl $21, %eax # 2MiB pages
+    add $0x40000000, %eax
     or $0b10000011, %eax # present + writable + huge page
     mov %eax, p2_table_2(,%ecx,8)
     movl $0, p2_table_2+ 4(,%ecx,8)
@@ -372,8 +369,8 @@ setup_paging:
     xor %ecx, %ecx
 .map_p2_table_3:
     mov %ecx, %eax
-    shl $21, %ecx # 2MiB pages
-    add $0x80000000, %ecx
+    shl $21, %eax # 2MiB pages
+    add $0x80000000, %eax
     or $0b10000011, %eax # present + writable + huge page
     mov %eax, p2_table_3(,%ecx,8)
     movl $0, p2_table_3+ 4(,%ecx,8)
@@ -384,32 +381,44 @@ setup_paging:
     xor %ecx, %ecx
 .map_p2_table_4:
     mov %ecx, %eax
-    shl $21, %ecx # 2MiB pages
-    add $0x160000000, %ecx
+    shl $21, %eax # 2MiB pages
+    add $0xC0000000, %eax
     or $0b10000011, %eax # present + writable + huge page
-    mov %eax, p2_table_3(,%ecx,8)
-    movl $0, p2_table_3+ 4(,%ecx,8)
+    mov %eax, p2_table_4(,%ecx,8)
+    movl $0, p2_table_4+ 4(,%ecx,8)
     inc %ecx
     cmp $512, %ecx
-    jne .map_p2_table_3
+    jne .map_p2_table_4
 
     xor %ecx, %ecx
 
     mov $p4_table, %eax
     mov %eax, %cr3
 
+    leal test_msg, %esi
+    call serial_print
+
     mov %cr4, %eax
     or $0x20, %eax          # PAE
     mov %eax, %cr4
+
+    leal test_msg, %esi
+    call serial_print
 
     mov $0xC0000080, %ecx
     rdmsr
     or $0x100, %eax         # LME
     wrmsr
 
+    leal test_msg, %esi
+    call serial_print
+
     mov %cr0, %eax
     or $0x80000000, %eax    # PG
     mov %eax, %cr0
+
+    leal test_msg, %esi
+    call serial_print
 
     mov %cr0, %eax
     test $0x80000000, %eax   # check PG enabled
@@ -453,17 +462,13 @@ long_mode_start:
 
     mov $stack_top, %rsp
 
-
     /* Prepare arguments for kernel_main(magic, info_ptr)
        System V ABI: 1st arg in %rdi, 2nd in %rsi 
        Since we moved %eax/%ebx into %edi/%esi earlier, we are ready.
     */
 
-
+    mov %rsp, %rdi
     pop %rsi
-    pop %rdi
-    mov $0xC001C0DE, %rdi
-    and $-16, %rsp 
 
     call kernel_main
 
@@ -481,7 +486,7 @@ This is useful when debugging or when you implement call tracing.
 gdt64:
     .quad 0                         # Null descriptor
     .quad (1<<43) | (1<<44) | (1<<47) | (1<<53)  # Code descriptor
-
+.global gdt64_ptr
 gdt64_ptr:
     .word 16-1     # limit = size of two descriptors minus 1
     .quad gdt64    # base

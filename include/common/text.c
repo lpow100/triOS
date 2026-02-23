@@ -1,4 +1,5 @@
 #include "text.h"
+#include "math.h"
 
 size_t terminalRow = 0;
 size_t terminalColumn = 0;
@@ -64,46 +65,82 @@ char* hexAsString(int number) {
     return result;
 }
 
-char* intAsString(int number) {
-
-    char buffer[32]; // temp buffer to build number in reverse
+void intAsString(int number, char* buffer) {
     int i = 0;
+    int isNegative = 0;
 
     // Handle 0 explicitly
     if (number == 0) {
         buffer[i++] = '0';
+        buffer[i] = '\0';
+        return;
     }
 
     // Handle negative numbers
-    int isNegative = 0;
     if (number < 0) {
         isNegative = 1;
-        number = -number;
-    }
-
-    // Build number in reverse
-    while (number > 0) {
-        buffer[i++] = '0' + (number % 10);
-        number /= 10;
+        // Using unsigned to avoid overflow with INT_MIN
+        unsigned int n = -number; 
+        while (n != 0) {
+            buffer[i++] = (n % 10) + '0';
+            n /= 10;
+        }
+    } else {
+        unsigned int n = number;
+        while (n != 0) {
+            buffer[i++] = (n % 10) + '0';
+            n /= 10;
+        }
     }
 
     if (isNegative) {
         buffer[i++] = '-';
     }
 
-    // Null-terminate
-    buffer[i] = '\0';
+    buffer[i] = '\0'; // Always null-terminate!
 
-    // Now reverse the buffer
-    char result[64];
-    for (int j = 0; j < i; j++) {
-        result[j] = buffer[i - j - 1];
+    // The digits are currently backwards (e.g., "321" for 123)
+    // We need to reverse the string in place
+    int start = 0;
+    int end = i - 1;
+    while (start < end) {
+        char temp = buffer[start];
+        buffer[start] = buffer[end];
+        buffer[end] = temp;
+        start++;
+        end--;
     }
-    result[i] = '\0';
-
-    return result;
 }
 
+void u64AsString(uint64_t number, char* buffer) {
+    int i = 0;
+
+    // Handle 0 case
+    if (number == 0) {
+        buffer[i++] = '0';
+        buffer[i] = '\0';
+        return;
+    }
+
+    // Extract digits (they come out backwards)
+    while (number > 0) {
+        buffer[i++] = (number % 10) + '0';
+        number /= 10;
+    }
+
+    buffer[i] = '\0'; // Null terminate
+
+    // Reverse the string in place
+    int start = 0;
+    int end = i - 1;
+    while (start < end) {
+        char temp = buffer[start];
+        buffer[start] = buffer[end];
+        buffer[end] = temp;
+        start++;
+        end--;
+    }
+}
 // Converts `num` to a hex string in `buffer`
 // `buffer` must be large enough to hold the result + null terminator.
 // Returns pointer to the buffer.
