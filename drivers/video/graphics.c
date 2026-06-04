@@ -1,18 +1,9 @@
 #include "graphics.h"
 
-uint32_t *fb;
-uint32_t screenWidth;
-uint32_t screenHeight;
-uint32_t pitch_pixels;
-uint8_t bpp;
+uint32_t* fb;
 
-int initGraphics(struct multiboot_info* mbi) {
-    if (!(mbi->flags & (1 << 12))) return -1; //Isn't using graphics
-    fb = (uint32_t*) (uintptr_t) mbi->framebuffer_addr;
-    screenWidth = mbi->framebuffer_width;
-    screenHeight = mbi->framebuffer_height;
-    pitch_pixels = mbi->framebuffer_pitch / 4; // pitch is bytes per row; divide by 4 for pixels
-    bpp = mbi->framebuffer_bpp;
+int initGraphics(uint64_t framebuffer_address) {
+    fb = (uint32_t*)(uintptr_t)framebuffer_address;
 }
 
 void flip() {
@@ -20,11 +11,27 @@ void flip() {
 }
 
 void fill(uint32_t color){
-    for (int i = 0; i < screenWidth + screenHeight * pitch_pixels; i++) fb[i] = color;
+    for (uint32_t y = 0; y < screen_height; y++) {
+        for (uint32_t x = 0; x < screen_width; x++) {
+            drawPixel(x,y,color);
+        }
+    }
 }
 
-void drawPixel(int x, int y, uint32_t color){
-    fb[y * pitch_pixels + x] = color;
+void drawPixel(int x, int y, uint32_t color) {
+    // Prevent drawing outside the valid screen boundaries
+    if (x < 0 || x >= (int)screen_width || y < 0 || y >= (int)screen_height) {
+        return;
+    }
+    
+    uint32_t index = (y * (pitch / 4)) + x;
+    fb[index] = color;
 }
 
-//void drawRect(int x, int y, uin)
+void drawRect(int x, int y, int width, int height, uint32_t color) {
+    for (uint32_t loopy = y; loopy < y + height; loopy++) {
+        for (uint32_t loopx = x; loopx < x + width; loopx++) {
+            drawPixel(loopx,loopy,color);
+        }
+    }
+}

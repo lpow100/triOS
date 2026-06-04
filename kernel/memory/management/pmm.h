@@ -8,6 +8,8 @@
 
 void pmm_init_huge(struct multiboot_info* mbi);
 
+uintptr_t pmm_alloc_huge_page();
+
 void pmm_lock_huge_page(uintptr_t addr);
 void pmm_free_huge_page(uintptr_t addr);
 

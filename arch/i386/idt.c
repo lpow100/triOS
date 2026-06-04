@@ -46,7 +46,7 @@ void init_idt(void)
     // Specific hardware interrupts (IRQs mapped to 32+)
     init_idt_desc(0x08, (uint64_t)_asm_irq_0, 0x8E00, &kidt[32]);      // Timer
     init_idt_desc(0x08, (uint64_t)_asm_irq_1, 0x8E00, &kidt[33]);      // Keyboard
-    init_idt_desc(0x08, (uint64_t)_asm_syscall_int, 0xEE00, &kidt[80]); // Syscall (DPL 3)
+    init_idt_desc(0x08, (uint64_t)_asm_syscall_int, 0xEE00, &kidt[128]); // Syscall (DPL 3)
 
     // Set the IDT pointer
     kidtr.limit = (IDTSIZE * sizeof(struct idtdesc)) - 1;

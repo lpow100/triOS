@@ -49,6 +49,11 @@ SECTIONS
 	{
 		*(COMMON)
 		*(.bss)
-		_kernel_end = .;
+		. = ALIGN(16);
+        stack_bottom = .;
+        . += 0x10000; 
+        stack_top = .;
 	}
+
+	_kernel_end = .;
 }

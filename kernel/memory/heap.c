@@ -3,49 +3,15 @@
 #include "io.h"
 #include <text.h>
 
-#define HEAP_SIZE 0x800000 // value bigger than the small ass area given within other areas
+#define HEAP_SIZE 0x200000 // value bigger than the small ass area given within other areas
 
 struct heapInfo heap;
-
-int findHeapRegion(struct multiboot_info* multiboot_info_ptr) {
-    struct multiboot_mmap_entry* mmap = (struct multiboot_mmap_entry*)multiboot_info_ptr->mmap_addr;
-    uint64_t mmap_end = multiboot_info_ptr->mmap_addr + multiboot_info_ptr->mmap_length;
-
-    uintptr_t kernel_limit = (uintptr_t)&_kernel_end;
-
-    uint64_t heap_addr;
-
-    kprintf("variables setup\n");
-
-    char lenbuff[20];
-    u64AsString(multiboot_info_ptr->mmap_addr,lenbuff);
-    kprintf(lenbuff);
-    kprintf("\n");
-
-    while((uintptr_t) mmap < mmap_end) {
-        kprintf("attempting heap region find\n");
-        uint64_t start = mmap->addr;
-        uint64_t end = start + mmap->size;
-
-        if (start < kernel_limit) {
-            start = kernel_limit;
-        }
-
-        if (mmap->type != 1 || end <= start /* prevents integer underflow from next check */ || end - start < HEAP_SIZE) {
-            mmap = (struct multiboot_mmap_entry*)((uintptr_t)mmap + mmap->size + sizeof(mmap->size));
-            continue;
-        }
-    
-        heap_addr = start;
-        return heap_addr;
-    }
-
-    kprintf("heap setup\n");
-}
+static bool canUseHeap = false;
 
 // initalizes the heap and returns the total size
-int heapInit(struct multiboot_info* multiboot_info_ptr) {
-    uint64_t addr = findHeapRegion(multiboot_info_ptr);
+int heapInit() {
+    // TODO: Change from 2MB heap to a 8MB heap
+    uint64_t addr = pmm_alloc_huge_page();
     if (addr == 0) return 0;
 
     heap.addr = addr;
@@ -60,6 +26,7 @@ int heapInit(struct multiboot_info* multiboot_info_ptr) {
 
     heap.free = first;
     heap.freeSize = first->size;
+    canUseHeap = true;
 
     return 0;
 }
@@ -90,7 +57,11 @@ void adjustFreeList(struct heapSegment* curr, int size) {
     }
 }
 
-void *malloc(int size) {
+void *malloc(size_t size) {
+    if (!canUseHeap) {
+        kprintf("[ERROR]: Using malloc before heap init!\n");
+        return 0x0;
+    }
     // 1. Align size for 64-bit (16-byte alignment is best)
     size = (size + 15) & ~15;
 
@@ -102,11 +73,11 @@ void *malloc(int size) {
             curr = curr->next;
             continue;
         }
+
+        heap.freeSize -= (size + sizeof(struct heapSegment));
             
         // Fragmentation
         adjustFreeList(curr, size);
-
-        heap.freeSize -= (curr->size + sizeof(struct heapSegment));
         
         // Return the address AFTER the header
         curr->magic = ALLOCATED_SEG;
@@ -116,6 +87,10 @@ void *malloc(int size) {
 }
 
 void free(void *memory) {
+    if (!canUseHeap) {
+        kprintf("[ERROR]: Using free before heap init!\n");
+        return;
+    }
     if (!memory) return;
 
     struct heapSegment* curr = (struct heapSegment*)((uint8_t*)memory - sizeof(struct heapSegment));

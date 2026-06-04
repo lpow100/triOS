@@ -9,7 +9,6 @@ header_start:
     .long header_end - header_start
     /* checksum */
     .long 0x100000000 - (0xe85250d6 + 0 + (header_end - header_start))
-
     /* framebuffer tag */
     .align 8
 framebuffer_tag_start:
@@ -42,24 +41,31 @@ System V ABI standard and de-facto extensions. The compiler will assume the
 stack is properly aligned and failure to align the stack will result in
 undefined behavior.
 */
-.section .bss
+.section .page_tables, "aw", @nobits
 .align 4096
+.globl pmm_bitmap_start
+.globl pmm_bitmap_end
+
+pmm_bitmap_start:
+    .skip 0x20000    # Reserve 128KiB (Manages up to 4GiB of RAM)
+pmm_bitmap_end:
+.align 4096 # make sure the pages stay aligned
 p4_table:
     .skip 4096
 p3_table:
     .skip 4096
 p2_table_1:
-    .skip 4096 * 4
+    .skip 4096
 p2_table_2:
     .skip 4096
 p2_table_3:
     .skip 4096
 p2_table_4:
     .skip 4096
-.align 16
-stack_bottom:
-.skip 16384 # 16 KiB
-stack_top:
+.section .bss
+.align 4096
+.extern stack_top
+.extern stack_bottom
 
 .section .data
 no_multiboot_msg:
@@ -78,6 +84,10 @@ fail_pg_msg:
     .ascii "fail_pg\n\0"
 fail_pae_msg:
     .ascii "fail_pae\n\0"
+    .globl mmap_addr
+mmap_addr:
+    .long 0
+
     .globl framebuffer_address
 framebuffer_address:
     .long 0          # 32-bit low part of framebuffer address
@@ -108,6 +118,13 @@ total_physical_memory:
 magic_number:
     .long 0
 
+    .globl ustar_start
+ustar_start:
+    .long 0
+
+    .globl ustar_end
+ustar_end:
+    .long 0
 
 
 /*
@@ -159,9 +176,6 @@ _start:
 
     movl $0xC001C0DE, magic_number
 
-    leal test_msg, %esi
-    call serial_print
-
     call check_multiboot
     call check_cpuid
     call check_long_mode
@@ -186,6 +200,14 @@ read_multiboot2:
     add $8, %esi  # Skip total_size (4) + reserved (4)
 .tag_loop:
     mov (%esi), %eax      # load tag type
+    push %eax
+
+    addb $'a', %al      # load byte again
+    mov $0x3F8, %dx       # COM1 data port
+    outb %al, %dx         # send character
+
+    pop %eax
+
     cmp $0, %eax          # type 0 = end tag
     je .done_tags
 
@@ -194,12 +216,21 @@ read_multiboot2:
 
     cmp $6, %eax          # memory map tag
     je .found_mmap
+
+    cmp $3, %eax
+    je .found_module
 .next_tag:
     mov 4(%esi), %edx  # tag size
     add %edx, %esi        # move to next tag
     add $7, %esi
     and $~7, %esi         # align to 8 bytes
     jmp .tag_loop
+.found_module:
+    mov 8(%esi), %eax           
+    movl %eax, ustar_start
+    mov 12(%esi), %eax           
+    movl %eax, ustar_end
+    jmp .next_tag
 .found_framebuffer:
     mov 8(%esi), %eax           # framebuffer_addr low 32-bit
     movl %eax, framebuffer_address
@@ -228,12 +259,12 @@ fill_loop:
     loop fill_loop              # Repeat until %ecx is 0
     jmp .next_tag
 .found_mmap:
+    mov %esi, mmap_addr
     mov 4(%esi), %ecx       # tag_size
     mov 8(%esi), %ebx       # entry_size
     lea 16(%esi), %edi      # pointer to first entry
-    add %esi, %ecx            # ecx = end of tag
-
-    # 0 out eax
+    add %esi, %ecx          # ecx = end of tag
+    
     xor %eax, %eax
     mov %eax, total_physical_memory
     mov %eax, total_physical_memory+4
@@ -255,9 +286,6 @@ fill_loop:
 .mmap_done:
     jmp .next_tag
 .done_tags:
-    mov $'D', %al # 'F' for Framebuffer
-    mov $0x3F8, %dx
-    outb %al, %dx
     mov framebuffer_address, %eax 
     cmp $0, %eax
     je .no_framebuffer
@@ -395,30 +423,18 @@ setup_paging:
     mov $p4_table, %eax
     mov %eax, %cr3
 
-    leal test_msg, %esi
-    call serial_print
-
     mov %cr4, %eax
     or $0x20, %eax          # PAE
     mov %eax, %cr4
-
-    leal test_msg, %esi
-    call serial_print
 
     mov $0xC0000080, %ecx
     rdmsr
     or $0x100, %eax         # LME
     wrmsr
 
-    leal test_msg, %esi
-    call serial_print
-
     mov %cr0, %eax
     or $0x80000000, %eax    # PG
     mov %eax, %cr0
-
-    leal test_msg, %esi
-    call serial_print
 
     mov %cr0, %eax
     test $0x80000000, %eax   # check PG enabled
@@ -458,16 +474,17 @@ long_mode_start:
     mov %eax, %es
     mov %eax, %fs
     mov %eax, %gs
-    mov %eax, %ss
+    mov $0x0000920000000000, %ax
+    mov %ax, %ss
 
-    mov $stack_top, %rsp
+    movq $stack_top, %rsp
 
     /* Prepare arguments for kernel_main(magic, info_ptr)
        System V ABI: 1st arg in %rdi, 2nd in %rsi 
        Since we moved %eax/%ebx into %edi/%esi earlier, we are ready.
     */
 
-    mov %rsp, %rdi
+    mov framebuffer_address, %rdi
     pop %rsi
 
     call kernel_main
@@ -484,9 +501,11 @@ This is useful when debugging or when you implement call tracing.
 
 .section .rodata
 gdt64:
-    .quad 0                         # Null descriptor
-    .quad (1<<43) | (1<<44) | (1<<47) | (1<<53)  # Code descriptor
+    .quad 0                                     # 0x00: Null
+    .quad (1<<43) | (1<<44) | (1<<47) | (1<<53) # 0x08: Code
+    .quad 0x00CF92000000FFFF  # Standard 64-bit Data Segment (0x10)
+
 .global gdt64_ptr
 gdt64_ptr:
-    .word 16-1     # limit = size of two descriptors minus 1
-    .quad gdt64    # base
+    .word 24 - 1   # Limit is now 23 (0x17)
+    .quad gdt64

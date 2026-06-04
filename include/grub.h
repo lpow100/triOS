@@ -65,10 +65,17 @@ struct multiboot_info {
 
 
 struct multiboot_mmap_entry {
-    uint32_t size;
-    uint64_t addr;
-    uint64_t len;
+    uint64_t base_addr;
+    uint64_t length;
     uint32_t type;
+    uint32_t reserved;
+} __attribute__((packed));
+
+struct multiboot_mmap {
+    uint32_t type;
+    uint32_t size;
+    uint32_t entry_size;
+    uint32_t entry_version;
 } __attribute__((packed));
 
 #endif

@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <management/pmm.h>
+#include <heap.h>
 #include <grub.h>
 
 extern uint8_t _kernel_end;
@@ -21,6 +22,6 @@ static inline void read_gdtr(struct gdt_ptr* ptr) {
 }
 
 // The paging in assembly is just a bootstrap, this is the real shit
-void init_paging(struct multiboot_info* multiboot_info_ptr);
+void memory_init(struct multiboot_info* multiboot_info_ptr);
 
 #endif

@@ -3,9 +3,10 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <management/pmm.h>
 #include "grub.h"
 
-#define BAD_SEGMENT_PTR (struct heapSegment*) 0xBAADF00D
+#define BAD_SEGMENT_PTR (struct heapSegment*) 0
 #define ALLOCATED_SEG 0x414C4F43
 #define FREE_SEG 0x46524545
 
@@ -25,9 +26,9 @@ struct heapInfo{
 
 extern struct heapInfo heap;
 
-int heapInit(struct multiboot_info* multiboot_info_ptr);
+int heapInit();
 
-void *malloc(int size);
+void *malloc(size_t size);
 
 void free(void *memory);
 

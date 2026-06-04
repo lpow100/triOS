@@ -5,20 +5,16 @@
 
 #include <stdint.h>
 
-extern uint32_t *frontBuffer;
-extern uint32_t *backBuffer;
-extern uint32_t screenWidth;
-extern uint32_t screenHeight;
-extern uint32_t pitch_pixels;
-extern uint8_t bpp;
+extern uint32_t screen_width;
+extern uint32_t screen_height;
+extern uint32_t bits_per_pixel;
+extern uint32_t pitch;
 
-int initGraphics(struct multiboot_info* mbi);
-
-void flip();
+int initGraphics(uint64_t framebuffer_address);
 
 void fill(uint32_t color);
 
 void drawPixel(int x, int y, uint32_t color);
-void drawRect();
+void drawRect(int x, int y, int width, int height, uint32_t color);
 
 #endif

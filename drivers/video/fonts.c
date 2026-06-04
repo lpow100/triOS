@@ -10,3 +10,10 @@ void drawChar(int x, int y, char chr, uint32_t color) {
         }
     }
 }
+
+
+void drawString(int x, int y, const char* text, uint32_t color){
+    for (int i = 0; text[i] != '\0'; i++) {
+        drawChar(x + i * FONT_WIDTH, y, text[i], color);
+    } 
+}

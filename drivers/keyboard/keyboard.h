@@ -8,20 +8,29 @@
 #define BUFFER_SIZE 256
 
 typedef struct {
-    const char* name;
-    uint8_t scan_code;
+    char ch;        // ascii character, 0 if non-printable
+    uint8_t keycode;// scancode
 } KeyMapping;
 
+struct Key{    
+    uint8_t keycode; 
+    bool shift;
+    bool ctrl;
+    bool alt;
+    bool capslck;
+};
+
+
 // Stores name in str
-extern volatile char* key_buffer[BUFFER_SIZE];
-extern volatile int head;
-extern volatile int tail;
+extern struct Key key_buffer[BUFFER_SIZE];
+extern int head;
+extern int tail;
 
-extern volatile KeyMapping keymap[];
-extern volatile KeyMapping shiftKeymap[];
-extern volatile KeyMapping capsLockKeymap[];
+extern KeyMapping keymap[256];
+extern KeyMapping shiftKeymap[256];
 
-char *read_next_key();
+struct Key read_next_key();
+char getKeyChar(struct Key key);
 
 void isr_keyboard_int(void);
 

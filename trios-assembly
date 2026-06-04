@@ -1,0 +1,18 @@
+.data
+hello:
+    .string "Hello world!\n"
+
+.text
+.globl _start
+_start:
+    movq $1, %rax      # int $0x80 number
+    movq $1, %rdi      # fd
+    movq $hello, %rsi  # buffer
+    movq $13, %rdx     # length
+    int $0x80
+
+    movq $60, %rax     # exit int $0x80 number (64-bit uses 60 not 1)
+    movq $0, %rdi
+    int $0x80
+
+        

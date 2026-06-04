@@ -1,5 +1,6 @@
 #include "text.h"
 #include "math.h"
+#include "io.h"
 
 size_t terminalRow = 0;
 size_t terminalColumn = 0;
@@ -14,14 +15,26 @@ size_t strlen(const char* str)
 	return len;
 }
 
-bool strcmp(const char* str1, const char* str2) 
+int strcmp(const char* str1, const char* str2) 
 {
-    if (strlen(str1) == 0 && strlen(str2) == 0) return true; 
-    if (strlen(str1) != strlen(str2)) return false;
+    if (strlen(str1) == 0 && strlen(str2) == 0) return 0; 
+    if (strlen(str1) != strlen(str2)) return 1;
 	for (int i = 0; i < strlen(str1) && i < strlen(str2); i ++) {
-        if (str1[i] != str2[i]) return false;
+        if (str1[i] != str2[i]) return 1;
     }
-    return true;
+    return 0;
+}
+
+int memcmp(const void* str1, const void* str2, size_t n) {
+    const unsigned char* s1 = (const unsigned char*)str1;
+    const unsigned char* s2 = (const unsigned char*)str2;
+
+    for (size_t i = 0; i < n; i++) {
+        if (s1[i] != s2[i]) {
+            return (s1[i] - s2[i]);
+        }
+    }
+    return 0;
 }
 
 // Returns a list with the strings split and a 0xBAADF00D pointer at the end
@@ -192,4 +205,60 @@ int stringAsInt(char* buffer) {
         num = '0' - buffer[i];
     }
     return num;
+}
+
+void printU64(int number) {
+    char buffer[21];
+    int i = 0;
+
+    // Handle 0 case
+    if (number == 0) {
+        buffer[i++] = '0';
+        buffer[i] = '\0';
+        kprintf(buffer);
+        return;
+    }
+
+    while (number > 0) {
+        buffer[i++] = (number % 10) + '0';
+        number /= 10;
+    }
+
+    buffer[i] = '\0';
+
+    int start = 0;
+    int end = i - 1;
+    while (start < end) {
+        char temp = buffer[start];
+        buffer[start] = buffer[end];
+        buffer[end] = temp;
+        start++;
+        end--;
+    }
+
+    kprintf(buffer);
+}
+
+uint64_t stringAsU64(const char* buffer) {
+    uint64_t result = 0;
+    for (int i = 0; buffer[i] != '\0'; i++) {
+        if (buffer[i] < '0' || buffer[i] > '9') break;
+        result = result * 10 + (buffer[i] - '0');
+    }
+    return result;
+}
+
+uint64_t hexStringAsU64(const char* buffer) {
+    uint64_t result = 0;
+    int i = 0;
+    if (buffer[0] == '0' && buffer[1] == 'x') i = 2; // skip 0x prefix
+    for (; buffer[i] != '\0'; i++) {
+        uint8_t digit;
+        if (buffer[i] >= '0' && buffer[i] <= '9') digit = buffer[i] - '0';
+        else if (buffer[i] >= 'a' && buffer[i] <= 'f') digit = buffer[i] - 'a' + 10;
+        else if (buffer[i] >= 'A' && buffer[i] <= 'F') digit = buffer[i] - 'A' + 10;
+        else break;
+        result = result * 16 + digit;
+    }
+    return result;
 }

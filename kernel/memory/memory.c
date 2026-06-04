@@ -11,6 +11,10 @@ extern uint64_t total_physical_memory;
 static uint32_t total_page_count;
 static uint32_t table_count;
 
-void init_paging(struct multiboot_info* multiboot_info_ptr) {
+void memory_init(struct multiboot_info* multiboot_info_ptr) {
     pmm_init_huge(multiboot_info_ptr);
+    kprintf("Initalized pmm\n");
+
+    heapInit();
+    kprintf("Initalized heap\n");
 }

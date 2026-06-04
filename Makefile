@@ -13,7 +13,8 @@ SRCS_C   := $(shell find . -name '*.c')
 SRCS_ASM := $(shell find . -name '*.s')
 OBJS     := $(SRCS_C:.c=.o) $(SRCS_ASM:.s=.o)
 
-CFLAGS  = -std=gnu99 -ffreestanding -O2 -Wall -Wextra $(INCLUDES) 
+# TODO: Instead of just outright now allowing SIMD/SSE make it work instead
+CFLAGS  = -std=gnu99 -ffreestanding -O2 -Wall -Wextra $(INCLUDES) -mno-sse -mno-sse2 -mno-mmx -mno-80387
 ASFLAGS = 
 LDFLAGS = -T arch/i386/boot/linker.ld -ffreestanding -O2 -nostdlib -lgcc
 
@@ -28,18 +29,19 @@ all: $(TARGET_ISO)
 $(TARGET_ISO): $(TARGET_BIN) grub.cfg
 	mkdir -p $(ISODIR)/boot/grub
 	cp $(TARGET_BIN) $(ISODIR)/boot/$(TARGET_BIN)
+	cp initrd.tar isodir/boot/initrd.tar
 	cp grub.cfg $(ISODIR)/boot/grub/grub.cfg
 	$(GRUB_MKRESCUE) -o $@ $(ISODIR)
 
 $(TARGET_BIN): $(OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(OBJS)
+	$(LD) $(LDFLAGS) -o $@ $(OBJS) -g
 	$(MAKE) multiboot_check
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -g
 
 %.o: %.s
-	$(AS) $(ASFLAGS) $< -o $@
+	$(AS) $(ASFLAGS) $< -o $@ -g
 
 multiboot_check:
 	@$(GRUB_FILE) --is-x86-multiboot2 $(TARGET_BIN) || (echo "Not Multiboot2 compliant!" && exit 1)
@@ -51,7 +53,6 @@ run: $(TARGET_ISO)
 	         -cpu qemu64,+lm \
 	         -serial stdio \
 			 -d int,cpu_reset -D qemu.log -no-reboot -no-shutdown
-
 clean:
 	rm -f $(OBJS) $(TARGET_BIN) $(TARGET_ISO)
 	rm -rf $(ISODIR)

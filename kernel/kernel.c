@@ -10,6 +10,8 @@
 #include <gdt.h>
 #include <pic.h>
 #include <lib.h>
+#include <storage/ustar.h>
+#include <assembler/assembler.h>
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -26,24 +28,13 @@ void set_cursor(int x, int y) {
     outb(0x3D5, (uint8_t)((pos >> 8) & 0xFF)); 
 }
 
-extern uint64_t framebuffer_address;
-extern uint32_t screen_width;
-extern uint32_t screen_height;
-extern uint32_t bits_per_pixel;
-extern uint32_t pitch;
+//extern uint64_t framebuffer_address;
 
-static uint32_t *framebuffer = NULL;
-static uint32_t *back_buffer = (uint32_t*)0x04000000;
+extern uint32_t ustar_start;
 
-void kernel_main(uint64_t stack, uint32_t multiboot_info_ptr) {
-    kprintf("start.s finished\n");
-    uint32_t* fb = (uint32_t*)(uintptr_t)framebuffer_address;
+uint64_t stack_top;
 
-    char bitmap_start_buff[20];
-    u64AsString((uint64_t)stack,bitmap_start_buff);
-    kprintf("stack: ");
-    kprintf(bitmap_start_buff);
-    kprintf("\n");
+void kernel_main(uint64_t framebuffer_address, uint32_t multiboot_info_ptr) {
 
     asm volatile (
         "xor %%rax, %%rax\n\t"   // Zero out RAX
@@ -55,19 +46,35 @@ void kernel_main(uint64_t stack, uint32_t multiboot_info_ptr) {
     init_idt();
     init_pic();
     init_timer();
-    kprintf("Timer initialized\n");
     asm volatile ("sti"::);
-    kprintf("Intterupts resumed\n");
 
-    init_paging((struct multiboot_info*)multiboot_info_ptr);
+    memory_init((struct multiboot_info*)multiboot_info_ptr);
 
-    //framebuffer = (volatile uint32_t *)(uintptr_t)framebuffer_address;
-    //kprintf("frame buffered\n");
-    //for (uint32_t i = 0; i < 10; i++)
-    //{
-    //    framebuffer[i] = 0x0000FFFF;
-    //}
-    //kprintf("frame colored\n");
+    initGraphics(framebuffer_address);
+    fill(BLACK);
+
+    uint64_t idx = 0;
+    uint64_t yidx = 1;
+
+    char *file_contents = NULL;
+    int size = tar_lookup((unsigned char *)ustar_start, "trios-assembly", &file_contents);
+
+    InitializeTerminal((u32Vector2){screen_width, screen_height});
+    DrawTerminal();
+
+
+    assemble(file_contents,size); 
+    asm volatile ("sti"::);
+    kprintf("assembly MASTER\n");
+
+    while (true) {
+        char inp = getKeyChar(read_next_key());
+        if (inp == 0) {continue;}
+        AddTerminalInput(inp);
+        fill(BLACK);
+        DrawTerminal();
+        asm volatile("hlt");
+    } 
 /*
 
     struct multiboot_info *mbi = (struct multiboot_info*)multiboot_info_ptr;

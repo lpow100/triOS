@@ -14,7 +14,6 @@
 .global _asm_pf
 
 .macro PUSH_REGS
-    push rax
     push rbx
     push rcx
     push rdx
@@ -29,9 +28,11 @@
     push r13
     push r14
     push r15
+    push rax
 .endm
 
 .macro POP_REGS
+    pop rax
     pop r15
     pop r14
     pop r13
@@ -46,7 +47,6 @@
     pop rdx
     pop rcx
     pop rbx
-    pop rax
 .endm
 
 
@@ -108,8 +108,10 @@ _asm_irq_1:
 _asm_syscall_int:
     PUSH_REGS
 
-    mov rdi, rsp              
+    mov r9, rax  
+    sub rsp, 8
     call isr_syscall_handler
+    add rsp, 8
 
     mov al, 0x20
     out 0x20, al

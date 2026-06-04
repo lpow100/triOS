@@ -12,5 +12,6 @@ static inline int abs(int x)
 char *itoa(int i);
 void srand();
 uint32_t rand(void);
+int oct2bin(unsigned char *str, int size);
 
 #endif
