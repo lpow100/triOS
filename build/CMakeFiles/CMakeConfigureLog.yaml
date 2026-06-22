@@ -1,0 +1,1068 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    searched_directories:
+      - "/usr/local/bin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:207 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The target system is: Generic -  - x86_64
+      The host system is: Linux - 6.18.9+deb14-amd64 - x86_64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeUnixFindMake.cmake:5 (find_program)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_MAKE_PROGRAM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gmake"
+      - "make"
+      - "smake"
+    candidate_directories:
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    searched_directories:
+      - "/usr/local/bin/gmake"
+    found: "/usr/bin/gmake"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCCompilerId.c.in"
+    candidate_directories:
+      - "/usr/share/cmake-4.2/Modules/"
+    found: "/usr/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: /home/hackerman/opt/cross/bin/x86_64-elf-gcc 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      /home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/bin/ld: cannot find crt0.o: No such file or directory
+      /home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/bin/ld: cannot find -lc: Permission denied
+      collect2: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCCompilerId.c.in"
+    candidate_directories:
+      - "/usr/share/cmake-4.2/Modules/"
+    found: "/usr/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /home/hackerman/opt/cross/bin/x86_64-elf-gcc 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        /home/hackerman/Documents/osDev/triOS/build/CMakeFiles/4.2.3/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-ar"
+      - "ar"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-ar"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_RANLIB"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-ranlib"
+      - "ranlib"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_STRIP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-strip"
+      - "strip"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-strip"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-ld"
+      - "ld"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-ld"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_NM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-nm"
+      - "nm"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-nm"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-objdump"
+      - "objdump"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-objdump"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-objcopy"
+      - "objcopy"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-objcopy"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_READELF"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-readelf"
+      - "readelf"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-readelf"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_DLLTOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-dlltool"
+      - "dlltool"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    searched_directories:
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-dlltool"
+      - "/usr/local/bin/x86_64-elf-dlltool"
+      - "/usr/bin/x86_64-elf-dlltool"
+      - "/bin/x86_64-elf-dlltool"
+      - "/usr/local/games/x86_64-elf-dlltool"
+      - "/usr/games/x86_64-elf-dlltool"
+      - "/snap/bin/x86_64-elf-dlltool"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-dlltool"
+      - "/home/hackerman/opt/cross/bin/dlltool"
+      - "/usr/local/bin/dlltool"
+      - "/usr/bin/dlltool"
+      - "/bin/dlltool"
+      - "/usr/local/games/dlltool"
+      - "/usr/games/dlltool"
+      - "/snap/bin/dlltool"
+      - "/home/hackerman/.dotnet/tools/dlltool"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_ADDR2LINE"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-addr2line"
+      - "addr2line"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-addr2line"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_TAPI"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-tapi"
+      - "tapi"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    searched_directories:
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-tapi"
+      - "/usr/local/bin/x86_64-elf-tapi"
+      - "/usr/bin/x86_64-elf-tapi"
+      - "/bin/x86_64-elf-tapi"
+      - "/usr/local/games/x86_64-elf-tapi"
+      - "/usr/games/x86_64-elf-tapi"
+      - "/snap/bin/x86_64-elf-tapi"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-tapi"
+      - "/home/hackerman/opt/cross/bin/tapi"
+      - "/usr/local/bin/tapi"
+      - "/usr/bin/tapi"
+      - "/bin/tapi"
+      - "/usr/local/games/tapi"
+      - "/usr/games/tapi"
+      - "/snap/bin/tapi"
+      - "/home/hackerman/.dotnet/tools/tapi"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:18 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_AR"
+    description: "A wrapper around 'ar' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-gcc-ar-15.2"
+      - "x86_64-elf-gcc-ar-15"
+      - "x86_64-elf-gcc-ar15"
+      - "x86_64-elf-gcc-ar"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    searched_directories:
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ar-15.2"
+      - "/usr/local/bin/x86_64-elf-gcc-ar-15.2"
+      - "/usr/bin/x86_64-elf-gcc-ar-15.2"
+      - "/bin/x86_64-elf-gcc-ar-15.2"
+      - "/usr/local/games/x86_64-elf-gcc-ar-15.2"
+      - "/usr/games/x86_64-elf-gcc-ar-15.2"
+      - "/snap/bin/x86_64-elf-gcc-ar-15.2"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-gcc-ar-15.2"
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ar-15"
+      - "/usr/local/bin/x86_64-elf-gcc-ar-15"
+      - "/usr/bin/x86_64-elf-gcc-ar-15"
+      - "/bin/x86_64-elf-gcc-ar-15"
+      - "/usr/local/games/x86_64-elf-gcc-ar-15"
+      - "/usr/games/x86_64-elf-gcc-ar-15"
+      - "/snap/bin/x86_64-elf-gcc-ar-15"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-gcc-ar-15"
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ar15"
+      - "/usr/local/bin/x86_64-elf-gcc-ar15"
+      - "/usr/bin/x86_64-elf-gcc-ar15"
+      - "/bin/x86_64-elf-gcc-ar15"
+      - "/usr/local/games/x86_64-elf-gcc-ar15"
+      - "/usr/games/x86_64-elf-gcc-ar15"
+      - "/snap/bin/x86_64-elf-gcc-ar15"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-gcc-ar15"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ar"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:30 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_RANLIB"
+    description: "A wrapper around 'ranlib' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-gcc-ranlib-15.2"
+      - "x86_64-elf-gcc-ranlib-15"
+      - "x86_64-elf-gcc-ranlib15"
+      - "x86_64-elf-gcc-ranlib"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    searched_directories:
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ranlib-15.2"
+      - "/usr/local/bin/x86_64-elf-gcc-ranlib-15.2"
+      - "/usr/bin/x86_64-elf-gcc-ranlib-15.2"
+      - "/bin/x86_64-elf-gcc-ranlib-15.2"
+      - "/usr/local/games/x86_64-elf-gcc-ranlib-15.2"
+      - "/usr/games/x86_64-elf-gcc-ranlib-15.2"
+      - "/snap/bin/x86_64-elf-gcc-ranlib-15.2"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-gcc-ranlib-15.2"
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ranlib-15"
+      - "/usr/local/bin/x86_64-elf-gcc-ranlib-15"
+      - "/usr/bin/x86_64-elf-gcc-ranlib-15"
+      - "/bin/x86_64-elf-gcc-ranlib-15"
+      - "/usr/local/games/x86_64-elf-gcc-ranlib-15"
+      - "/usr/games/x86_64-elf-gcc-ranlib-15"
+      - "/snap/bin/x86_64-elf-gcc-ranlib-15"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-gcc-ranlib-15"
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ranlib15"
+      - "/usr/local/bin/x86_64-elf-gcc-ranlib15"
+      - "/usr/bin/x86_64-elf-gcc-ranlib15"
+      - "/bin/x86_64-elf-gcc-ranlib15"
+      - "/usr/local/games/x86_64-elf-gcc-ranlib15"
+      - "/usr/games/x86_64-elf-gcc-ranlib15"
+      - "/snap/bin/x86_64-elf-gcc-ranlib15"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-gcc-ranlib15"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1290 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      GNU assembler (GNU Binutils) 2.45
+      Copyright (C) 2025 Free Software Foundation, Inc.
+      This program is free software; you may redistribute it under the terms of
+      the GNU General Public License version 3 or later.
+      This program has absolutely no warranty.
+      This assembler was configured for a target of `x86_64-elf'.
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:18 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:268 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_ASM_COMPILER_AR"
+    description: "A wrapper around 'ar' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-gcc-ar-"
+      - "x86_64-elf-gcc-ar-"
+      - "x86_64-elf-gcc-ar"
+      - "x86_64-elf-gcc-ar"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    searched_directories:
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ar-"
+      - "/usr/local/bin/x86_64-elf-gcc-ar-"
+      - "/usr/bin/x86_64-elf-gcc-ar-"
+      - "/bin/x86_64-elf-gcc-ar-"
+      - "/usr/local/games/x86_64-elf-gcc-ar-"
+      - "/usr/games/x86_64-elf-gcc-ar-"
+      - "/snap/bin/x86_64-elf-gcc-ar-"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-gcc-ar-"
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ar-"
+      - "/usr/local/bin/x86_64-elf-gcc-ar-"
+      - "/usr/bin/x86_64-elf-gcc-ar-"
+      - "/bin/x86_64-elf-gcc-ar-"
+      - "/usr/local/games/x86_64-elf-gcc-ar-"
+      - "/usr/games/x86_64-elf-gcc-ar-"
+      - "/snap/bin/x86_64-elf-gcc-ar-"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-gcc-ar-"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ar"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:30 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:268 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_ASM_COMPILER_RANLIB"
+    description: "A wrapper around 'ranlib' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "x86_64-elf-gcc-ranlib-"
+      - "x86_64-elf-gcc-ranlib-"
+      - "x86_64-elf-gcc-ranlib"
+      - "x86_64-elf-gcc-ranlib"
+    candidate_directories:
+      - "/home/hackerman/opt/cross/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/games/"
+      - "/usr/games/"
+      - "/snap/bin/"
+      - "/home/hackerman/.dotnet/tools/"
+    searched_directories:
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ranlib-"
+      - "/usr/local/bin/x86_64-elf-gcc-ranlib-"
+      - "/usr/bin/x86_64-elf-gcc-ranlib-"
+      - "/bin/x86_64-elf-gcc-ranlib-"
+      - "/usr/local/games/x86_64-elf-gcc-ranlib-"
+      - "/usr/games/x86_64-elf-gcc-ranlib-"
+      - "/snap/bin/x86_64-elf-gcc-ranlib-"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-gcc-ranlib-"
+      - "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ranlib-"
+      - "/usr/local/bin/x86_64-elf-gcc-ranlib-"
+      - "/usr/bin/x86_64-elf-gcc-ranlib-"
+      - "/bin/x86_64-elf-gcc-ranlib-"
+      - "/usr/local/games/x86_64-elf-gcc-ranlib-"
+      - "/usr/games/x86_64-elf-gcc-ranlib-"
+      - "/snap/bin/x86_64-elf-gcc-ranlib-"
+      - "/home/hackerman/.dotnet/tools/x86_64-elf-gcc-ranlib-"
+    found: "/home/hackerman/opt/cross/bin/x86_64-elf-gcc-ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/games"
+        - "/usr/games"
+        - "/snap/bin"
+        - "/home/hackerman/.dotnet/tools"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/CMakeScratch/TryCompile-UefsZ7"
+      binary: "/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/CMakeScratch/TryCompile-UefsZ7"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/CMakeScratch/TryCompile-UefsZ7'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_df021/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_df021.dir/build.make CMakeFiles/cmTC_df021.dir/build
+        gmake[1]: Entering directory '/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/CMakeScratch/TryCompile-UefsZ7'
+        Building C object CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj
+        /home/hackerman/opt/cross/bin/x86_64-elf-gcc   -v -o CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj -c /usr/share/cmake-4.2/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/home/hackerman/opt/cross/bin/x86_64-elf-gcc
+        Target: x86_64-elf
+        Configured with: ../gcc-15.2.0/configure --target=x86_64-elf --disable-nls --enable-languages=c,c++ --without-headers --prefix=/root/build-x86_64-elf/linux/output
+        Thread model: single
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.2.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_df021.dir/'
+         /home/hackerman/opt/cross/bin/../libexec/gcc/x86_64-elf/15.2.0/cc1 -quiet -v -iprefix /home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/ /usr/share/cmake-4.2/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_df021.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/cc8XenY2.s
+        GNU C23 (GCC) version 15.2.0 (x86_64-elf)
+        	compiled by GNU C version 13.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/sys-include"
+        ignoring nonexistent directory "/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/include"
+        ignoring duplicate directory "/home/hackerman/opt/cross/bin/../lib/gcc/../../lib/gcc/x86_64-elf/15.2.0/include"
+        ignoring duplicate directory "/home/hackerman/opt/cross/bin/../lib/gcc/../../lib/gcc/x86_64-elf/15.2.0/include-fixed"
+        ignoring nonexistent directory "/home/hackerman/opt/cross/bin/../lib/gcc/../../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/sys-include"
+        ignoring nonexistent directory "/home/hackerman/opt/cross/bin/../lib/gcc/../../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/include
+         /home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/include-fixed
+        End of search list.
+        Compiler executable checksum: aa19db085d9dddc6123aea4bbae8654e
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_df021.dir/'
+         /home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/bin/as -o CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj /tmp/cc8XenY2.s
+        COMPILER_PATH=/home/hackerman/opt/cross/bin/../libexec/gcc/x86_64-elf/15.2.0/:/home/hackerman/opt/cross/bin/../libexec/gcc/:/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/bin/
+        LIBRARY_PATH=/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/:/home/hackerman/opt/cross/bin/../lib/gcc/:/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.'
+        Linking C static library libcmTC_df021.a
+        /usr/bin/cmake -P CMakeFiles/cmTC_df021.dir/cmake_clean_target.cmake
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_df021.dir/link.txt --verbose=1
+        /home/hackerman/opt/cross/bin/x86_64-elf-ar qc libcmTC_df021.a CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj
+        /home/hackerman/opt/cross/bin/x86_64-elf-ranlib libcmTC_df021.a
+        gmake[1]: Leaving directory '/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/CMakeScratch/TryCompile-UefsZ7'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/include]
+          add: [/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/include-fixed]
+        end of search list found
+        collapse include dir [/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/include] ==> [/home/hackerman/opt/cross/lib/gcc/x86_64-elf/15.2.0/include]
+        collapse include dir [/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/include-fixed] ==> [/home/hackerman/opt/cross/lib/gcc/x86_64-elf/15.2.0/include-fixed]
+        implicit include dirs: [/home/hackerman/opt/cross/lib/gcc/x86_64-elf/15.2.0/include;/home/hackerman/opt/cross/lib/gcc/x86_64-elf/15.2.0/include-fixed]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/CMakeScratch/TryCompile-UefsZ7']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_df021/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_df021.dir/build.make CMakeFiles/cmTC_df021.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/CMakeScratch/TryCompile-UefsZ7']
+        ignore line: [Building C object CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj]
+        ignore line: [/home/hackerman/opt/cross/bin/x86_64-elf-gcc   -v -o CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj -c /usr/share/cmake-4.2/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/home/hackerman/opt/cross/bin/x86_64-elf-gcc]
+        ignore line: [Target: x86_64-elf]
+        ignore line: [Configured with: ../gcc-15.2.0/configure --target=x86_64-elf --disable-nls --enable-languages=c c++ --without-headers --prefix=/root/build-x86_64-elf/linux/output]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.2.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_df021.dir/']
+        ignore line: [ /home/hackerman/opt/cross/bin/../libexec/gcc/x86_64-elf/15.2.0/cc1 -quiet -v -iprefix /home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/ /usr/share/cmake-4.2/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_df021.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/cc8XenY2.s]
+        ignore line: [GNU C23 (GCC) version 15.2.0 (x86_64-elf)]
+        ignore line: [	compiled by GNU C version 13.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/sys-include"]
+        ignore line: [ignoring nonexistent directory "/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/include"]
+        ignore line: [ignoring duplicate directory "/home/hackerman/opt/cross/bin/../lib/gcc/../../lib/gcc/x86_64-elf/15.2.0/include"]
+        ignore line: [ignoring duplicate directory "/home/hackerman/opt/cross/bin/../lib/gcc/../../lib/gcc/x86_64-elf/15.2.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/home/hackerman/opt/cross/bin/../lib/gcc/../../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/sys-include"]
+        ignore line: [ignoring nonexistent directory "/home/hackerman/opt/cross/bin/../lib/gcc/../../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/include]
+        ignore line: [ /home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/include-fixed]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: aa19db085d9dddc6123aea4bbae8654e]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_df021.dir/']
+        ignore line: [ /home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/bin/as -o CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj /tmp/cc8XenY2.s]
+        ignore line: [COMPILER_PATH=/home/hackerman/opt/cross/bin/../libexec/gcc/x86_64-elf/15.2.0/:/home/hackerman/opt/cross/bin/../libexec/gcc/:/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/bin/]
+        ignore line: [LIBRARY_PATH=/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/:/home/hackerman/opt/cross/bin/../lib/gcc/:/home/hackerman/opt/cross/bin/../lib/gcc/x86_64-elf/15.2.0/../../../../x86_64-elf/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.']
+        ignore line: [Linking C static library libcmTC_df021.a]
+        ignore line: [/usr/bin/cmake -P CMakeFiles/cmTC_df021.dir/cmake_clean_target.cmake]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_df021.dir/link.txt --verbose=1]
+        ignore line: [/home/hackerman/opt/cross/bin/x86_64-elf-ar qc libcmTC_df021.a CMakeFiles/cmTC_df021.dir/CMakeCCompilerABI.c.obj]
+        ignore line: [/home/hackerman/opt/cross/bin/x86_64-elf-ranlib libcmTC_df021.a]
+        ignore line: [gmake[1]: Leaving directory '/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/CMakeScratch/TryCompile-UefsZ7']
+        ignore line: []
+        ignore line: []
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+...

@@ -12,6 +12,9 @@
 #include <lib.h>
 #include <storage/ustar.h>
 #include <assembler/assembler.h>
+#include <processes/processes.h>
+#include <storage/files.h>
+#include <user.h>
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -57,15 +60,36 @@ void kernel_main(uint64_t framebuffer_address, uint32_t multiboot_info_ptr) {
     uint64_t yidx = 1;
 
     char *file_contents = NULL;
-    int size = tar_lookup((unsigned char *)ustar_start, "trios-assembly", &file_contents);
+    int size = tar_lookup((unsigned char *)ustar_start, "shell.sef", &file_contents);
+
+    if (size == 0 || file_contents == NULL) {
+        kprintf("[ERROR]: Could not find file 'shell.sef' in archive.\n");
+        return;
+    }
+ 
+    struct disk_file *header = (struct disk_file *)file_contents;
+
+    if ((header->magic & 0x000FFFFF) != 0x3C0DE) {
+        kprintf("[ERROR]: File 'shell.sef' is not a validated Tri Executable Format binary.\n");
+        return;
+    }
+
+    enum file_type type = GET_FILE_TYPE(header->magic);
+    printU64((int)type);
+    if (type != FILE_SEF) {
+        kprintf("[ERROR]: 'shell.sef' is a valid file, but it is not an executable payload.\n");
+        return;
+    }
+
+    struct TEF *executable = (struct TEF *)file_contents;
+    create_process(*executable);
+
+    jump_to_user_mode((void *)executable -> entry_point,(void *)processes[0].kernel_rsp);
+
+    kprintf("back?\n");
 
     InitializeTerminal((u32Vector2){screen_width, screen_height});
     DrawTerminal();
-
-
-    assemble(file_contents,size); 
-    asm volatile ("sti"::);
-    kprintf("assembly MASTER\n");
 
     while (true) {
         char inp = getKeyChar(read_next_key());

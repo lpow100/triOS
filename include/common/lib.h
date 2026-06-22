@@ -10,7 +10,7 @@ static inline int abs(int x)
   return x >= 0 ? x : -x;
 }
 char *itoa(int i);
-void srand();
+void srand(uint32_t s);
 uint32_t rand(void);
 int oct2bin(unsigned char *str, int size);
 

@@ -1,0 +1,11 @@
+/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/kernel_asm.dir
+/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/myos.bin.dir
+/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/image.dir
+/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/edit_cache.dir
+/home/hackerman/Documents/osDev/triOS/build/CMakeFiles/rebuild_cache.dir
+/home/hackerman/Documents/osDev/triOS/build/user/CMakeFiles/initrd_ustar.dir
+/home/hackerman/Documents/osDev/triOS/build/user/CMakeFiles/edit_cache.dir
+/home/hackerman/Documents/osDev/triOS/build/user/CMakeFiles/rebuild_cache.dir
+/home/hackerman/Documents/osDev/triOS/build/user/shell/CMakeFiles/shell.bin.dir
+/home/hackerman/Documents/osDev/triOS/build/user/shell/CMakeFiles/edit_cache.dir
+/home/hackerman/Documents/osDev/triOS/build/user/shell/CMakeFiles/rebuild_cache.dir

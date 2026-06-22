@@ -10,6 +10,10 @@ void _asm_irq_1(void);
 void _asm_syscall_int(void);
 void _asm_pf(void);
 
+void isr_default_int() {
+    
+}
+
 volatile struct idtr kidtr;
 volatile struct idtdesc kidt[IDTSIZE];
 

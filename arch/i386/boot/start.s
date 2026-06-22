@@ -202,7 +202,8 @@ read_multiboot2:
     mov (%esi), %eax      # load tag type
     push %eax
 
-    addb $'a', %al      # load byte again
+    # Your serial debugging snippet
+    addb $'a', %al        # transform to character representation
     mov $0x3F8, %dx       # COM1 data port
     outb %al, %dx         # send character
 
@@ -217,20 +218,34 @@ read_multiboot2:
     cmp $6, %eax          # memory map tag
     je .found_mmap
 
-    cmp $3, %eax
+    cmp $3, %eax          # module tag
     je .found_module
+
 .next_tag:
-    mov 4(%esi), %edx  # tag size
-    add %edx, %esi        # move to next tag
-    add $7, %esi
-    and $~7, %esi         # align to 8 bytes
+    mov 4(%esi), %edx     # edx = total tag size (includes 8-byte header)
+    add %edx, %esi        # advance pointer by raw tag size
+    
+    # Clean 8-byte alignment optimization
+    # Since %esi was already advanced by the raw size, we just need to round 
+    # it up to the next multiple of 8 if it isn't perfectly aligned.
+    add $7, %esi          # This is correct ONLY if we apply it safely.
+    and $~7, %esi         # Align to 8-byte boundary
     jmp .tag_loop
+
 .found_module:
+    # According to MB2 specs:
+    # mod_start is at offset 8, mod_end is at offset 12
     mov 8(%esi), %eax           
     movl %eax, ustar_start
     mov 12(%esi), %eax           
     movl %eax, ustar_end
-    jmp .next_tag
+    
+    # Fall through or jump back to advance to the next tag
+    mov 4(%esi), %edx
+    add %edx, %esi
+    add $7, %esi
+    and $~7, %esi
+    jmp .tag_loop
 .found_framebuffer:
     mov 8(%esi), %eax           # framebuffer_addr low 32-bit
     movl %eax, framebuffer_address

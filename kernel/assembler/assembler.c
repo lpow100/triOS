@@ -1,4 +1,4 @@
-#include "assembler.h"
+/*#include "assembler.h"
 #include "syscalls.h"
 
 jmp_buf de_stack_env;
@@ -7,7 +7,7 @@ jmp_buf de_stack_env;
 TODO - AT&T Syntax Features:
  * Local Labels
  * Numeric Labels
-*/
+*
 
 // error types are defined when multiple types of errors can occur in one function, otherwise just use 1 and 0
 
@@ -117,7 +117,7 @@ uint8_t getInstructionSize(const char* line) {
             break;
         }
         if (line[i] == ' ' || line[i] == '\t') {
-            instructionLen = i + 1 /* add 1 because we start at 0 */;
+            instructionLen = i + 1; // add 1 because we start at 0 
             instruction[i] = '\0';
             continue;
         }
@@ -189,7 +189,14 @@ int findLabels(const char* assembly, int size, struct LabelPassState *state) {
                 return BAD_STRING_ERROR;
             }
             Label *lastLabel = &state->labels[state->labelCount-1];
-            if (addNewDataEntry(lastLabel->dataEntries`, &lastLabel->entryCount, parsed_string, state->dataOffset))
+            if (addNewDataEntry(lastLabel->dataEntries, &lastLabel->entryCount, parsed_string, state->dataOffset)) {
+                free(parsed_string);
+                free(line);
+                kprintf("Error on line: ");
+                printU64(lineCount);
+                kprintf("\n");
+                return BAD_STRING_ERROR;
+            }
             state->dataOffset += strlen(parsed_string) + 1;
             free(parsed_string);
         } else {
@@ -456,4 +463,4 @@ AssembledCode assemble(const char* assembly, int size) {
     kprintf("\n");
     
     execute_user_program(bytes);
-}
+}*/

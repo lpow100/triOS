@@ -1,0 +1,1 @@
+/home/hackerman/opt/cross/bin/x86_64-elf-gcc -ffreestanding -nostdlib -Wl,-Ttext=0x400000,--oformat=binary,-e,_start CMakeFiles/shell.bin.dir/_entry.S.obj CMakeFiles/shell.bin.dir/main.c.obj -o shell.bin

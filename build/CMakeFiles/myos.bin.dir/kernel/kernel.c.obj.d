@@ -1,0 +1,30 @@
+CMakeFiles/myos.bin.dir/kernel/kernel.c.obj: \
+ /home/hackerman/Documents/osDev/triOS/kernel/kernel.c \
+ /home/hackerman/Documents/osDev/triOS/include/common/text.h \
+ /home/hackerman/opt/cross/lib/gcc/x86_64-elf/15.2.0/include/stdint.h \
+ /home/hackerman/opt/cross/lib/gcc/x86_64-elf/15.2.0/include/stdint-gcc.h \
+ /home/hackerman/opt/cross/lib/gcc/x86_64-elf/15.2.0/include/stddef.h \
+ /home/hackerman/opt/cross/lib/gcc/x86_64-elf/15.2.0/include/stdbool.h \
+ /home/hackerman/Documents/osDev/triOS/arch/i386/io.h \
+ /home/hackerman/Documents/osDev/triOS/drivers/timer/timer.h \
+ /home/hackerman/Documents/osDev/triOS/drivers/keyboard/keyboard.h \
+ /home/hackerman/Documents/osDev/triOS/arch/i386/idt.h \
+ /home/hackerman/Documents/osDev/triOS/kernel/shell/shell.h \
+ /home/hackerman/Documents/osDev/triOS/drivers/video/colors.h \
+ /home/hackerman/Documents/osDev/triOS/include/common/types.h \
+ /home/hackerman/Documents/osDev/triOS/kernel/memory/memory.h \
+ /home/hackerman/Documents/osDev/triOS/kernel/memory/management/pmm.h \
+ /home/hackerman/Documents/osDev/triOS/include/grub.h \
+ /home/hackerman/Documents/osDev/triOS/kernel/memory/heap.h \
+ /home/hackerman/Documents/osDev/triOS/drivers/video/graphics.h \
+ /home/hackerman/Documents/osDev/triOS/drivers/video/fonts.h \
+ /home/hackerman/Documents/osDev/triOS/arch/i386/gdt.h \
+ /home/hackerman/Documents/osDev/triOS/arch/i386/pic.h \
+ /home/hackerman/Documents/osDev/triOS/include/common/lib.h \
+ /home/hackerman/Documents/osDev/triOS/drivers/storage/ustar.h \
+ /home/hackerman/Documents/osDev/triOS/kernel/assembler/assembler.h \
+ /home/hackerman/Documents/osDev/triOS/kernel/system/setjmp.h \
+ /home/hackerman/Documents/osDev/triOS/kernel/system/processes/processes.h \
+ /home/hackerman/Documents/osDev/triOS/drivers/storage/files.h \
+ /home/hackerman/Documents/osDev/triOS/kernel/memory/heap.h \
+ /home/hackerman/Documents/osDev/triOS/arch/i386/user.h

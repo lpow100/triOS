@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/hackerman/Documents/osDev/triOS/build/cmake_install.cmake",
+		"/home/hackerman/Documents/osDev/triOS/build/user/cmake_install.cmake",
+		"/home/hackerman/Documents/osDev/triOS/build/user/shell/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

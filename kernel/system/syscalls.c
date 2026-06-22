@@ -34,7 +34,7 @@ void sys_exit(uint64_t status) {
     // Clear up any transient buffers here if necessary
     
     // Jump completely back out to the stable kernel execution frame
-    longjmp(de_stack_env, 1);
+    //longjmp(de_stack_env, 1);
 }
 
 // rdi, rsi, rdx, rcx, r8 are the user's arguments
@@ -42,16 +42,15 @@ void sys_exit(uint64_t status) {
 uint64_t isr_syscall_handler(uint64_t rdi, uint64_t rsi, uint64_t rdx, 
                              uint64_t rcx, uint64_t r8, uint64_t syscallNumber) {
     switch (syscallNumber) {
-        case 1: // SYS_WRITE
-            kprintf("hi\n");
+        case 2: // SYS_WRITE
             return sys_write(rdi, (const char*)rsi, rdx);
             break;
             
-        case 2: // SYS_READ
+        case 3: // SYS_READ
             //return sys_read(rdi, (char*)rsi, rdx);
             break;
 
-        case 60:
+        case 1:
             sys_exit(rdi);
             break;
 
